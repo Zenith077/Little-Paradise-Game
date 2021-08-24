@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcca98005357d6c46840a44d92f654a6, type: 3}
+  m_Name: Slime
+  m_EditorClassIdentifier: 
+  name: Slime
+  description: A slime is a basic monster
+  neutral: 0
+  maxHealth: 20
+  currentHealth: 20
+  baseStats:
+    list:
+    - Key: PAT
+      Value: 5
+    - Key: PATRES
+      Value: 5
+    - Key: MAT
+      Value: 5
+    - Key: MATRES
+      Value: 5
+    - Key: MVSPD
+      Value: 5
+    - Key: DODGE
+      Value: 5
+    - Key: CRIT
+      Value: 5
+  activeStats:
+    list:
+    - Key: PATRES
+      Value: 5
+    - Key: MAT
+      Value: 5
+    - Key: MATRES
+      Value: 5
+    - Key: MVSPD
+      Value: 5
+    - Key: DODGE
+      Value: 5
+    - Key: CRIT
+      Value: 5
+    - Key: PAT
+      Value: 5
+  moveList: []
+  battleBehaviour:
+    list:
+    - Key: 0
+      Value: {fileID: 0}
+    - Key: 1
+      Value: {fileID: 0}
+    - Key: 2
+      Value: {fileID: 0}
+    - Key: 3
+      Value: {fileID: 0}
+    - Key: 4
+      Value: {fileID: 0}
+  activeStatuses: []
