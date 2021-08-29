@@ -49,7 +49,8 @@ MonoBehaviour:
       Value: 5
     - Key: PAT
       Value: 5
-  moveList: []
+  moveList:
+  - {fileID: 11400000, guid: a6b97036a5b3410459633421152c0590, type: 2}
   battleBehaviour:
     list:
     - Key: 0

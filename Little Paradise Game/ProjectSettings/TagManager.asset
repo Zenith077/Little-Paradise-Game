@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RoomMidPoint
   - RoomSpawnPoint
+  - Hostile
   layers:
   - Default
   - TransparentFX
