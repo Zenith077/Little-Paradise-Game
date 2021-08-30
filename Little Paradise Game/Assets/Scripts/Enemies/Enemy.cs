@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
 
     Rigidbody rb;
 
-    private void Awake()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
@@ -34,8 +34,8 @@ public class Enemy : MonoBehaviour
     {
         // rb.velocity = agent.velocity;
 
-        
-       // agent.SetDestination(target.position);
+
+        // agent.SetDestination(target.position);
     }
 
     void Rotate()

@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager instance;
-
     public Color fadeColor;
 
     public float fadeInTime;
@@ -19,37 +18,36 @@ public class LevelManager : MonoBehaviour
 
     LoadingScreen loadingScreen;
 
+    List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
+
+    public static Action OnLoadNewSceneBegin;
+
+    public static Action OnLoadNewSceneFinished;
     // Start is called before the first frame update
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(LoadNewScene(0, 2));
-        }
-    }
-
-
 
     void Awake()
     {
-        //A basic singleton implementation:
-        if (instance == null) //Is the instance null? if it is, no scenemanager has been created
-        {
-            instance = this; //Hence, we assign the instance to this object.
-        }
-
-        else if (instance != this) //If the instance is not this, that means the instance was filled by another object.
-        {
-            Destroy(gameObject); //That means we have two SceneManagers, and so we destroy the duplicate.
-        }
-
-        //And we also grab a reference to the loadingScreen
+        // grab a reference to the loadingScreen
         loadingScreen = FindObjectOfType<LoadingScreen>();
     }
 
-    List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
-    public IEnumerator LoadNewScene(int currentSceneIndex, int newSceneIndex)
+    public void LoadNewScene(int currentSceneIndex, int newSceneIndex)
     {
+        StartCoroutine(LoadNewSceneRoutine(currentSceneIndex, newSceneIndex));
+    }
+
+    public void LoadNewScene(string currentSceneName, string newSceneName)
+    {
+        StartCoroutine(LoadNewSceneRoutine(currentSceneName, newSceneName));
+    }
+
+
+    IEnumerator LoadNewSceneRoutine(int currentSceneIndex, int newSceneIndex)
+    {
+        if (OnLoadNewSceneBegin != null)
+        {
+            OnLoadNewSceneBegin.Invoke();
+        }
         loadingScreen.FadeLoadScreen(fadeColor, fadeInTime);
         yield return new WaitForSeconds(fadeInTime);
         scenesLoading.Add(SceneManager.LoadSceneAsync(newSceneIndex, LoadSceneMode.Additive));
@@ -63,8 +61,24 @@ public class LevelManager : MonoBehaviour
 
         StartCoroutine(GetSceneProgress());
     }
+    //An overload taking the scene name as an argument instead of scene index.
+    IEnumerator LoadNewSceneRoutine(string currentSceneName, string newSceneName)
+    {
+        loadingScreen.FadeLoadScreen(fadeColor, fadeInTime);
+        yield return new WaitForSeconds(fadeInTime);
+        scenesLoading.Add(SceneManager.LoadSceneAsync(newSceneName, LoadSceneMode.Additive));
 
-    public IEnumerator GetSceneProgress()
+        while (!scenesLoading[0].isDone)
+        {
+            yield return null;
+        }
+
+        scenesLoading.Add(SceneManager.UnloadSceneAsync(currentSceneName));
+
+        StartCoroutine(GetSceneProgress());
+    }
+
+    IEnumerator GetSceneProgress()
     {
         //If a scene is still loading
         for (int i = 0; i < scenesLoading.Count; i++)
@@ -75,9 +89,12 @@ public class LevelManager : MonoBehaviour
             }
         }
         //Once it is finished
+        if (OnLoadNewSceneFinished != null)
+        {
+            OnLoadNewSceneFinished.Invoke();
+        }
         loadingScreen.FadeLoadScreen(new Color(0, 0, 0, 0), fadeOutTime);
         scenesLoading.Clear();
-
     }
 
 
