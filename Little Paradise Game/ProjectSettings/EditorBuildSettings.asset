@@ -6,17 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/RoomLoading.unity
-    guid: fae79b480e00e8c4a8407346b91f8247
+    path: Assets/Scenes/Main Menu.unity
+    guid: d67dccf9578011642a26f085e2ce89b9
   - enabled: 1
-    path: Assets/Scenes/Inititialize.unity
+    path: Assets/Scenes/QuickInitialize.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
-  - enabled: 1
-    path: Assets/Scenes/DungeonRooms/Zone1/Z1_Rv0.unity
-    guid: b67924999d313254cb538d822cbc914a
   - enabled: 1
     path: Assets/Scenes/System/Persistant Elements.unity
     guid: 85951a5accb1f0945ab4c537b2c71893
+  - enabled: 1
+    path: Assets/Scenes/System/HUD.unity
+    guid: 660a17413c9628248900b061b18a107f
+  - enabled: 1
+    path: Assets/Scenes/System/Player.unity
+    guid: 5155a8a6714707f4cb26e951afd97a59
+  - enabled: 1
+    path: Assets/Scenes/DungeonRooms/Zone1/Z1_Rv0.unity
+    guid: b67924999d313254cb538d822cbc914a
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 7a9a9207aa7e39c4ba1a8a8a71b581df,
       type: 2}
